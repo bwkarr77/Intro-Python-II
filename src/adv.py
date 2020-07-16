@@ -1,4 +1,6 @@
 from room import Room
+from player import Player
+import sys
 
 # Declare all the rooms
 
@@ -36,6 +38,7 @@ room['treasure'].s_to = room['narrow']
 #
 # Main
 #
+print('!!!PREPARE TO START YOUR ADVENTURE!!!')
 
 # Make a new player object that is currently in the 'outside' room.
 
