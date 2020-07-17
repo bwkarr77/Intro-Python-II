@@ -1,6 +1,6 @@
 from room import Room
 from player import Player
-from actions import Actions
+import inspect
 import sys
 
 # Declare all the rooms
@@ -63,17 +63,33 @@ commands = "E = Expect Room\n V = View Items on You\n M = Move"
 while endGame < 1:
     print(f'\nYou are in room: {player.room.name}\n')
     print(f'{player.room.desc}\n')
-
-    print("How do you want to proceed?\n")
-    action = input('Commands: \n')
-    print(Actions(action).M())
-    if action.upper() == 'Q':
-        endGame = 1
-    elif action.upper() == 'E':
-        print("E entered")
-    elif action.upper() == 'V':
-        print("V entered")
-    elif action.upper() == 'M':
-        print('M entered')
+    #
+    print(f'You are holding: {player.items}\n')
+    print(f'You see the following items in your current room: {player.room.items}\n')
+    print('_____________________\n')
+    #
+    moveD = str(input('Enter in command:\n N, S, W, E to attempt to move to a different room\n "Q" to quit\n "get ['
+                      'item]" or "drop [item]" : ')).lower()
+    print('\n')
+    #
+    if moveD == 'q':
+        print("You have given up on life, and pass away....")
+        sys.exit('THE END')
+    elif moveD == 'n' or moveD == "s" or moveD == 'e' or moveD == 'w':
+        x1 = f'{moveD}_to'
+        if getattr(player.room, x1):
+            player.moveRoom(getattr(player.room, x1))
+            print(f'{player.name} moved to room: {player.room.name}')
+        else:
+            print('None shall pass!!! Try again')
     else:
-        print('Wrong action entered')
+        print('Invalid input. Try again.')
+
+    # elif moveD == 'get [item]':
+        # pick up stuff
+    # elif moveD == 'drop [item]':
+        # drop stuff
+
+
+
+
